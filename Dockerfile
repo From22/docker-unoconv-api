@@ -30,7 +30,12 @@ RUN apk add --no-cache \
 # Fonts:
 ADD ./bookman-old-style /usr/share/fonts/bookman-old-style
 ADD ./wingdings /usr/share/fonts/wingdings
+ADD ./sspfonts /usr/share/fonts/sspfonts
 
+RUN apk --no-cache add msttcorefonts-installer fontconfig && \
+    update-ms-fonts && \
+    fc-cache -f
+	
 WORKDIR /unoconvservice
 
 EXPOSE 3000
