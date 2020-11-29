@@ -12,15 +12,14 @@ USER root
 ADD ./fonts /usr/share/fonts/
 
 RUN apk add --no-cache \
-		ttf-droid-nonlatin \
-        ttf-droid \
-        ttf-dejavu \
-        ttf-freefont \
-        ttf-liberation \
-		
-RUN apk --no-cache add msttcorefonts-installer fontconfig && \
-    update-ms-fonts && \
-    fc-cache -f
+		msttcorefonts-installer fontconfig && \
+		update-ms-fonts && \
+		ttf-droid-nonlatin && \
+        ttf-droid && \
+        ttf-dejavu && \
+        ttf-freefont && \
+        ttf-liberation && \
+		fc-cache -f
 
 RUN apk add --no-cache \
         git \
