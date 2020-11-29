@@ -1,10 +1,17 @@
-FROM node:alpine
+FROM alpine:latest
 
 ENV TERM xterm
 ENV SERVER_PORT 3000
 ENV PAYLOAD_MAX_SIZE 1048576000
 ENV REPO_URL https://github.com/zrrrzzt/tfk-api-unoconv.git
 ENV UNO_URL https://raw.githubusercontent.com/dagwieers/unoconv/master/unoconv
+
+USER root
+
+# Fonts:
+ADD ./fonts /usr/share/fonts/
+
+RUN fc-cache -f && rm -rf /var/cache/*
 
 RUN apk add --no-cache \
         git \
@@ -26,15 +33,6 @@ RUN apk add --no-cache \
     && yarn --production \
     && apk del git curl \
     && rm -rf /var/cache/apk/*
-
-# Fonts:
-ADD ./bookman-old-style /usr/share/fonts/bookman-old-style
-ADD ./wingdings /usr/share/fonts/wingdings
-ADD ./sspfonts /usr/share/fonts/sspfonts
-
-RUN apk --no-cache add msttcorefonts-installer fontconfig && \
-    update-ms-fonts && \
-    fc-cache -f
 	
 WORKDIR /unoconvservice
 
