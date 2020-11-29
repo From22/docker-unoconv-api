@@ -8,14 +8,6 @@ ENV UNO_URL https://raw.githubusercontent.com/dagwieers/unoconv/master/unoconv
 
 USER root
 
-# Fonts:
-ADD ./fonts /usr/share/fonts/
-
-RUN apk add --no-cache \
-		msttcorefonts-installer fontconfig && \
-		update-ms-fonts && \
-		fc-cache -f
-
 RUN apk add --no-cache \
         git \
         curl \
@@ -35,8 +27,16 @@ RUN apk add --no-cache \
     && mkdir -p uploads \
     && yarn --production \
     && apk del git curl \
-    && rm -rf /var/cache/*
-	
+    && rm -rf /var/cache/apk/*
+
+# Fonts:
+ADD ./fonts /usr/share/fonts/
+
+RUN apk add --no-cache \
+		msttcorefonts-installer fontconfig && \
+		update-ms-fonts && \
+		fc-cache -f
+		
 WORKDIR /unoconvservice
 
 EXPOSE 3000
