@@ -11,18 +11,22 @@ USER root
 # Fonts:
 ADD ./fonts /usr/share/fonts/
 
-RUN fc-cache -f && rm -rf /var/cache/*
+RUN apk add --no-cache \
+		ttf-droid-nonlatin \
+        ttf-droid \
+        ttf-dejavu \
+        ttf-freefont \
+        ttf-liberation \
+		
+RUN apk --no-cache add msttcorefonts-installer fontconfig && \
+    update-ms-fonts && \
+    fc-cache -f
 
 RUN apk add --no-cache \
         git \
         curl \
         libreoffice-common \
         libreoffice-writer \
-        ttf-droid-nonlatin \
-        ttf-droid \
-        ttf-dejavu \
-        ttf-freefont \
-        ttf-liberation \
     && git clone --depth 1 $REPO_URL /unoconvservice \
     && rm -rf /unoconvservice/.git \
     && curl -Ls $UNO_URL -o /usr/local/bin/unoconv \
@@ -32,7 +36,7 @@ RUN apk add --no-cache \
     && mkdir -p uploads \
     && yarn --production \
     && apk del git curl \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/*
 	
 WORKDIR /unoconvservice
 
