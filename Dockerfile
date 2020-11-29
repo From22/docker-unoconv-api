@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM node:alpine
 
 ENV TERM xterm
 ENV SERVER_PORT 3000
@@ -6,7 +6,6 @@ ENV PAYLOAD_MAX_SIZE 1048576000
 ENV REPO_URL https://github.com/zrrrzzt/tfk-api-unoconv.git
 ENV UNO_URL https://raw.githubusercontent.com/dagwieers/unoconv/master/unoconv
 
-USER root
 
 RUN apk add --no-cache \
         git \
