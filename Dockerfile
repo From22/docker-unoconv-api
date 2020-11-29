@@ -14,11 +14,6 @@ ADD ./fonts /usr/share/fonts/
 RUN apk add --no-cache \
 		msttcorefonts-installer fontconfig && \
 		update-ms-fonts && \
-		ttf-droid-nonlatin && \
-        ttf-droid && \
-        ttf-dejavu && \
-        ttf-freefont && \
-        ttf-liberation && \
 		fc-cache -f
 
 RUN apk add --no-cache \
@@ -26,6 +21,11 @@ RUN apk add --no-cache \
         curl \
         libreoffice-common \
         libreoffice-writer \
+        ttf-droid-nonlatin \
+        ttf-droid \
+        ttf-dejavu \
+        ttf-freefont \
+        ttf-liberation \
     && git clone --depth 1 $REPO_URL /unoconvservice \
     && rm -rf /unoconvservice/.git \
     && curl -Ls $UNO_URL -o /usr/local/bin/unoconv \
